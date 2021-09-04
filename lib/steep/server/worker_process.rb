@@ -33,7 +33,11 @@ module Steep
           command << "--delay-shutdown"
         end
 
-        stdin, stdout, thread = Open3.popen2(*command, pgroup: true)
+        stdin, stdout, thread = if /mingw|mswin/ =~ RUBY_PLATFORM
+                                  Open3.popen2(*command, new_pgroup: true)
+                                else
+                                  Open3.popen2(*command, pgroup: true)
+                                end
         stderr = nil
 
         writer = LanguageServer::Protocol::Transport::Io::Writer.new(stdin)
