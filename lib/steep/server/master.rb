@@ -11,6 +11,8 @@ module Steep
         attr_reader :priority_paths
         attr_reader :checked_paths
 
+        include Steep::Utils::URIHelper
+
         def initialize(guid:)
           @guid = guid
           @library_paths = Set[]
@@ -18,12 +20,6 @@ module Steep
           @code_paths = Set[]
           @priority_paths = Set[]
           @checked_paths = Set[]
-        end
-
-        def uri(path)
-          URI.parse(path.to_s).tap do |uri|
-            uri.scheme = "file"
-          end
         end
 
         def as_json(assignment:)

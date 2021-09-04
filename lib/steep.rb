@@ -21,6 +21,12 @@ require "terminal-table"
 
 require "rbs"
 
+if RUBY_PLATFORM =~ /mingw|mswin/
+  require "steep/utils/uri_helper_windows.rb"
+else
+  require "steep/utils/uri_helper.rb"
+end
+
 require "steep/equatable"
 require "steep/method_name"
 require "steep/ast/types/helper"

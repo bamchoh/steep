@@ -12,6 +12,7 @@ module Steep
 
       include Utils::DriverHelper
       include Utils::JobsCount
+      include Steep::Utils::URIHelper
 
       def initialize(stdout:, stderr:)
         @stdout = stdout
@@ -214,7 +215,7 @@ module Steep
           total = errors.sum {|notification| notification[:diagnostics].size }
 
           errors.each do |notification|
-            path = project.relative_path(Pathname(URI.parse(notification[:uri]).path))
+            path = project.relative_path(Pathname(decode_uri(notification[:uri])))
             buffer = RBS::Buffer.new(name: path, content: path.read)
             printer = DiagnosticPrinter.new(buffer: buffer, stdout: stdout)
 
