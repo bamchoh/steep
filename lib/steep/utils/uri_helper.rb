@@ -2,7 +2,7 @@ module Steep
   module Utils
     module URIHelper
       def decode_uri(path)
-        path
+        URI.parse(path).path
       end
 
       def uri(path)
