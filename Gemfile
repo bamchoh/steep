@@ -10,4 +10,4 @@ gem "rake"
 gem "minitest", "~> 5.0"
 gem "racc", "~> 1.4"
 gem "minitest-hooks"
-gem "stackprof"
+gem "stackprof", :platforms => :ruby
